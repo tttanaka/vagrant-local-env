@@ -66,24 +66,25 @@ sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 echo "--- Restarting Apache: ---"
 sudo service apache2 restart
 
+# install Ruby
+echo "--- Installing Ruby/RVM ---"
+sudo apt-get install -y ruby1.9.3
+
 # install git
 echo "--- Installing Git: ---"
 sudo apt-get -y install git
 
-echo "--- Installing Node.js ---"
-sudo apt-get update
-sudo apt-get install -y python-software-properties python g++ make
-sudo add-apt-repository -y ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install -y nodejs
-
-echo "--- Installing Ruby ---"
-curl -L https://get.rvm.io | bash -s stable
-source /usr/local/rvm/scripts/rvm
-rvm requirements
-rvm install ruby
-rvm use ruby --default
-rvm rubygems current
+# echo "--- Installing Node.js ---"
+# sudo apt-get update
+# sudo apt-get install -y python-software-properties python g++ make
+# sudo add-apt-repository -y ppa:chris-lea/node.js
+# sudo apt-get update
+# sudo apt-get install -y nodejs
+#
+# # rvm and ruby
+# echo "--- Installing Ruby ---"
+# su - vagrant -c 'curl -sSL https://get.rvm.io | bash -s stable --ruby'
+# su - vagrant -c 'rvm rvmrc warning ignore allGemfiles'
 
 # install Composer
 echo "--- Installing Composer: ---"
@@ -91,3 +92,4 @@ curl -s https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
 echo "Project setup complete: /var/www/${PROJECTFOLDER}"
+echo "Next steps: type 'vagrant ssh && cd /var' to log into the machine."
